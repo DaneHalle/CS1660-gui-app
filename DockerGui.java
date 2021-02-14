@@ -3,6 +3,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.PrintStream;
 
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
+
 public class DockerGui {
 
 	public static void main(String[] args){
@@ -32,67 +36,85 @@ public class DockerGui {
 
 		// USER ACTIONS
 		// get a user token
-		JButton add_ten_button = new JButton("ADD 10");
-		add_ten_button.addActionListener(new compAS(val, 10));
+		JButton clear = new JButton("C");
+		clear.addActionListener(new clear(val));
 
+		JButton ans = new JButton("ANS");
+		ans.addActionListener(new ans(val));
 
-		JButton add_five_button = new JButton("ADD 5");
-		add_five_button.addActionListener(new compAS(val, 5));
+		JButton seven = new JButton("7");
+		seven.addActionListener(new number_sign(val, "7"));
 
+		JButton eight = new JButton("8");
+		eight.addActionListener(new number_sign(val, "8"));
 
-		JButton add_one_button = new JButton("ADD 1");
-		add_one_button.addActionListener(new compAS(val, 1));
+		JButton nine = new JButton("9");
+		nine.addActionListener(new number_sign(val, "9"));
 
+		JButton four = new JButton("4");
+		four.addActionListener(new number_sign(val, "4"));
 
-		JButton sub_one_button = new JButton("SUBTRACT 1");
-		sub_one_button.addActionListener(new compAS(val, -1));
+		JButton five = new JButton("5");
+		five.addActionListener(new number_sign(val, "5"));
 
+		JButton six = new JButton("6");
+		six.addActionListener(new number_sign(val, "6"));
 
-		JButton sub_five_button = new JButton("SUBTRACT 5");
-		sub_five_button.addActionListener(new compAS(val, -5));
+		JButton one = new JButton("1");
+		one.addActionListener(new number_sign(val, "1"));
 
+		JButton two = new JButton("2");
+		two.addActionListener(new number_sign(val, "2"));
 
-		JButton sub_ten_button = new JButton("SUBTRACT 10");
-		sub_ten_button.addActionListener(new compAS(val, -10));
+		JButton three = new JButton("3");
+		three.addActionListener(new number_sign(val, "3"));
 
+		JButton zero = new JButton("0");
+		zero.addActionListener(new number_sign(val, "0"));
 
-		JButton mul_ten_button = new JButton("MULTIPLY 10");
-		mul_ten_button.addActionListener(new compM(val, 10));
+		JButton decimal = new JButton(".");
+		decimal.addActionListener(new number_sign(val, "."));
 
+		JButton blank1 = new JButton("");
+		JButton blank2 = new JButton("");
 
-		JButton mul_five_button = new JButton("MULTIPLY 5");
-		mul_five_button.addActionListener(new compM(val, 5));
+		JButton plus = new JButton("+");
+		plus.addActionListener(new number_sign(val, "+"));
 
+		JButton minus = new JButton("-");
+		minus.addActionListener(new number_sign(val, "-"));
 
-		JButton mul_one_button = new JButton("MULTIPLY 1");
-		mul_one_button.addActionListener(new compM(val, 1));
+		JButton multiply = new JButton("*");
+		multiply.addActionListener(new number_sign(val, "*"));
 
+		JButton divide = new JButton("/");
+		divide.addActionListener(new number_sign(val, "/"));
 
-		JButton div_ten_button = new JButton("DIVIDE 10");
-		div_ten_button.addActionListener(new compD(val, 10));
+		JButton calc = new JButton("=");
+		calc.addActionListener(new equals(val));
 
+		JPanel action_panel = new JPanel(new GridLayout(5, 4));
 
-		JButton div_five_button = new JButton("DIVIDE 5");
-		div_five_button.addActionListener(new compD(val, 5));
-
-
-		JButton div_one_button = new JButton("DIVIDE 1");
-		div_one_button.addActionListener(new compD(val, 1));
-
-		JPanel action_panel = new JPanel(new GridLayout(3,4));
-		// action_panel.setLayout(new BoxLayout(action_panel, BoxLayout.Y_AXIS));
-		action_panel.add(add_ten_button);
-		action_panel.add(sub_ten_button);
-		action_panel.add(mul_ten_button);
-		action_panel.add(div_ten_button);
-		action_panel.add(add_five_button);
-		action_panel.add(sub_five_button);
-		action_panel.add(mul_five_button);
-		action_panel.add(div_five_button);
-		action_panel.add(add_one_button);
-		action_panel.add(sub_one_button);
-		action_panel.add(mul_one_button);
-		action_panel.add(div_one_button);
+		action_panel.add(clear);
+		action_panel.add(blank1);
+		action_panel.add(ans);
+		action_panel.add(divide);
+		action_panel.add(seven);
+		action_panel.add(eight);
+		action_panel.add(nine);
+		action_panel.add(multiply);
+		action_panel.add(four);
+		action_panel.add(five);
+		action_panel.add(six);
+		action_panel.add(minus);
+		action_panel.add(one);
+		action_panel.add(two);
+		action_panel.add(three);
+		action_panel.add(plus);
+		action_panel.add(blank2);
+		action_panel.add(zero);
+		action_panel.add(decimal);
+		action_panel.add(calc);
 
 		//layout
 		frame.add(consoleShell, BorderLayout.CENTER);
@@ -101,59 +123,73 @@ public class DockerGui {
 		frame.setVisible(true);
 	}
 
-	static class compAS implements ActionListener{
+	static class ans implements ActionListener{
 		Globals ref;
-		double toCompAS;
 
-		public compAS(Globals val, double _toCompAS){
-			ref = val;
-			toCompAS = _toCompAS;
+		public ans(Globals _ref){
+			ref = _ref;
 		}
 
 		public void actionPerformed(ActionEvent ev) {
-			if(toCompAS>0){
-				System.out.print(ref.curVal+"+"+toCompAS+" = ");
-			} else {
-				System.out.print(ref.curVal+""+toCompAS+" = ");
+			ref.toEval += ref.ans;
+			System.out.println(ref.toEval);
+		}
+	}
+
+	static class clear implements ActionListener{
+		Globals ref;
+
+		public clear(Globals _ref){
+			ref = _ref;
+		}
+
+		public void actionPerformed(ActionEvent ev) {
+			ref.toEval = "";
+		}
+	}
+
+	static class number_sign implements ActionListener{
+		Globals ref;
+		String val;
+
+		public number_sign(Globals _ref, String _val){
+			ref = _ref;
+			val = _val;
+		}
+
+		public void actionPerformed(ActionEvent ev) {
+			ref.toEval += val;
+			System.out.println(ref.toEval);
+		}
+	}
+
+	static class equals implements ActionListener{
+		Globals ref;
+
+		public equals(Globals _ref){
+			ref = _ref;
+		}
+
+		public void actionPerformed(ActionEvent ev){
+			try{
+			    ScriptEngineManager mgr = new ScriptEngineManager();
+			    ScriptEngine engine = mgr.getEngineByName("JavaScript");
+			    String foo = ref.toEval;
+			    String ans = engine.eval(foo).toString();
+			    System.out.println(foo+" = "+ans);
+			    ref.ans = ans;
+			    ref.toEval = "";
+			} catch(Exception e) {
+				System.out.println("Error");
+			    ref.toEval = "";
+			    ref.ans = "";
+				return;
 			}
-			ref.curVal += toCompAS;
-			System.out.println(ref.curVal);
-		}
-	}
-
-	static class compM implements ActionListener{
-		Globals ref;
-		double toCompM;
-
-		public compM(Globals val, double _toCompM){
-			ref = val;
-			toCompM = _toCompM;
-		}
-
-		public void actionPerformed(ActionEvent ev) {
-			System.out.print(ref.curVal+"*"+toCompM+" = ");
-			ref.curVal *= toCompM;
-			System.out.println(ref.curVal);
-		}
-	}
-
-	static class compD implements ActionListener{
-		Globals ref;
-		double toCompD;
-
-		public compD(Globals val, double _toCompD){
-			ref = val;
-			toCompD = _toCompD;
-		}
-
-		public void actionPerformed(ActionEvent ev) {
-			System.out.print(ref.curVal+"/"+toCompD+" = ");
-			ref.curVal /= toCompD;
-			System.out.println(ref.curVal);
 		}
 	}
 
 	static class Globals {
-	   public static double curVal = 0;
+	   public static String toEval = "";
+	   public static String ans = "";
 	}
 }

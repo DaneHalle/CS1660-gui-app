@@ -20,4 +20,3 @@ public class GuiConsole extends OutputStream {
         textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 }
-
