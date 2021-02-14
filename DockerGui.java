@@ -18,21 +18,25 @@ public class DockerGui {
 	}
 
 	public static void createAndRunGUI(){
+		int x = 400, y = 400;
 
 		Globals val = new Globals();
 
 		JFrame frame = new JFrame("DockerGUI");
+		frame.setLayout(new GridBagLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(800,500);
+		frame.setSize(x,y); 
+		val.out.setBackground(Color.white);
+		val.out.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints c = new GridBagConstraints();
+		int w = 1, h = 1;
 
-		// console output
-		JTextArea console = new JTextArea();
-		console.setEditable(false);
-		PrintStream printStream = new PrintStream(new GuiConsole(console));
-		System.setOut(printStream);
-		System.setErr(printStream);
+		val.out.setEditable(false);
 
-		JScrollPane consoleShell = new JScrollPane(console);
+		c.fill = GridBagConstraints.BOTH;
+		c.weighty = 1;
+		c.gridwidth = w*4;
+		frame.add(val.out, c);
 
 		// USER ACTIONS
 		// get a user token
@@ -75,9 +79,6 @@ public class DockerGui {
 		JButton decimal = new JButton(".");
 		decimal.addActionListener(new number_sign(val, "."));
 
-		JButton blank1 = new JButton("");
-		JButton blank2 = new JButton("");
-
 		JButton plus = new JButton("+");
 		plus.addActionListener(new number_sign(val, "+"));
 
@@ -93,32 +94,125 @@ public class DockerGui {
 		JButton calc = new JButton("=");
 		calc.addActionListener(new equals(val));
 
-		JPanel action_panel = new JPanel(new GridLayout(5, 4));
+		c.anchor = GridBagConstraints.WEST;
+		c.gridwidth = w;
+		c.gridheight = h;
+		c.weightx = 1;
+		c.weighty = 1;
+		frame.setSize(x, y-100);
 
-		action_panel.add(clear);
-		action_panel.add(blank1);
-		action_panel.add(ans);
-		action_panel.add(divide);
-		action_panel.add(seven);
-		action_panel.add(eight);
-		action_panel.add(nine);
-		action_panel.add(multiply);
-		action_panel.add(four);
-		action_panel.add(five);
-		action_panel.add(six);
-		action_panel.add(minus);
-		action_panel.add(one);
-		action_panel.add(two);
-		action_panel.add(three);
-		action_panel.add(plus);
-		action_panel.add(blank2);
-		action_panel.add(zero);
-		action_panel.add(decimal);
-		action_panel.add(calc);
 
-		//layout
-		frame.add(consoleShell, BorderLayout.CENTER);
-		frame.add(action_panel, BorderLayout.SOUTH);
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*0;
+		c.gridx = w*0;
+		c.gridy += 1;
+		c.gridwidth = w*2;
+		frame.add(clear, c);
+
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*0;
+		c.gridx = w*2;
+		c.gridy += 1;
+		c.gridwidth = w;
+		frame.add(ans, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*0;
+		c.gridx = w*3;
+		c.gridy += 1;
+		frame.add(divide, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*1;
+		c.gridx = w*0;
+		c.gridy += 1;
+		frame.add(seven, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*1;
+		c.gridx = w*1;
+		c.gridy += 1;
+		frame.add(eight, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*1;
+		c.gridx = w*2;
+		c.gridy += 1;
+		frame.add(nine, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*1;
+		c.gridx = w*3;
+		c.gridy += 1;
+		frame.add(multiply, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*2;
+		c.gridx = w*0;
+		c.gridy += 1;
+		frame.add(four, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*2;
+		c.gridx = w*1;
+		c.gridy += 1;
+		frame.add(five, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*2;
+		c.gridx = w*2;
+		c.gridy += 1;
+		frame.add(six, c);
+
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*2;
+		c.gridx = w*3;
+		c.gridy += 1;
+		frame.add(minus, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*3;
+		c.gridx = w*0;
+		c.gridy += 1;
+		frame.add(one, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*3;
+		c.gridx = w*1;
+		c.gridy += 1;
+		frame.add(two, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*3;
+		c.gridx = w*2;
+		c.gridy += 1;
+		frame.add(three, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*3;
+		c.gridx = w*3;
+		c.gridy += 1;
+		frame.add(plus, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*4;
+		c.gridx = w*0;
+		c.gridy += 1;
+		c.gridwidth = w*2;
+		frame.add(zero, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*4;
+		c.gridx = w*2;
+		c.gridy += 1;
+		c.gridwidth = w;
+		frame.add(decimal, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = h*4;
+		c.gridx = w*3;
+		c.gridy += 1;
+		frame.add(calc, c);
 
 		frame.setVisible(true);
 	}
@@ -131,7 +225,12 @@ public class DockerGui {
 		}
 
 		public void actionPerformed(ActionEvent ev) {
+			if(ref.clear){
+				ref.clear = false;
+				ref.toEval = "";
+			}
 			ref.toEval += ref.ans;
+			ref.out.setText(ref.toEval);
 			System.out.println(ref.toEval);
 		}
 	}
@@ -144,7 +243,12 @@ public class DockerGui {
 		}
 
 		public void actionPerformed(ActionEvent ev) {
+			if(ref.clear){
+				ref.clear = false;
+				ref.toEval = "";
+			}
 			ref.toEval = "";
+			ref.out.setText(ref.toEval);
 		}
 	}
 
@@ -158,7 +262,12 @@ public class DockerGui {
 		}
 
 		public void actionPerformed(ActionEvent ev) {
+			if(ref.clear){
+				ref.clear = false;
+				ref.toEval = "";
+			}
 			ref.toEval += val;
+			ref.out.setText(ref.toEval);
 			System.out.println(ref.toEval);
 		}
 	}
@@ -178,11 +287,13 @@ public class DockerGui {
 			    String ans = engine.eval(foo).toString();
 			    System.out.println(foo+" = "+ans);
 			    ref.ans = ans;
-			    ref.toEval = "";
+			    ref.out.setText(ref.toEval+" = "+ref.ans);
+			    ref.clear = true;
 			} catch(Exception e) {
 				System.out.println("Error");
 			    ref.toEval = "";
 			    ref.ans = "";
+			    ref.out.setText(ref.toEval);
 				return;
 			}
 		}
@@ -191,5 +302,8 @@ public class DockerGui {
 	static class Globals {
 	   public static String toEval = "";
 	   public static String ans = "";
+
+	   public static JTextField out = new JTextField();
+	   public static boolean clear = false;
 	}
 }
