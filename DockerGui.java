@@ -231,7 +231,6 @@ public class DockerGui {
 			}
 			ref.toEval += ref.ans;
 			ref.out.setText(ref.toEval);
-			System.out.println(ref.toEval);
 		}
 	}
 
@@ -268,7 +267,6 @@ public class DockerGui {
 			}
 			ref.toEval += val;
 			ref.out.setText(ref.toEval);
-			System.out.println(ref.toEval);
 		}
 	}
 
@@ -285,7 +283,6 @@ public class DockerGui {
 			    ScriptEngine engine = mgr.getEngineByName("JavaScript");
 			    String foo = ref.toEval;
 			    String ans = engine.eval(foo).toString();
-			    System.out.println(foo+" = "+ans);
 			    ref.ans = ans;
 			    ref.out.setText(ref.toEval+" = "+ref.ans);
 			    ref.clear = true;
