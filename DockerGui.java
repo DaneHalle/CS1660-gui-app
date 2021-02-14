@@ -38,8 +38,6 @@ public class DockerGui {
 		c.gridwidth = w*4;
 		frame.add(val.out, c);
 
-		// USER ACTIONS
-		// get a user token
 		JButton clear = new JButton("C");
 		clear.addActionListener(new clear(val));
 
@@ -100,8 +98,7 @@ public class DockerGui {
 		c.weightx = 1;
 		c.weighty = 1;
 		frame.setSize(x, y-100);
-
-
+		
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = h*0;
 		c.gridx = w*0;
